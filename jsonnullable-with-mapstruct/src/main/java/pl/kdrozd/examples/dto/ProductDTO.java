@@ -12,7 +12,17 @@ public class ProductDTO {
     private JsonNullable<String> description;
     private JsonNullable<String> manufacturer;
 
-    public ProductDTO(long id, String name, Integer quantity, JsonNullable<String> description, JsonNullable<String> manufacturer) {
+    public boolean hasDescription() {
+        return description != null && description.isPresent();
+    }
+
+    public boolean hasManufacturer() {
+        return manufacturer != null && manufacturer.isPresent();
+    }
+
+    // constructor, getters, setters...
+
+    public ProductDTO(Long id, String name, Integer quantity, JsonNullable<String> description, JsonNullable<String> manufacturer) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;

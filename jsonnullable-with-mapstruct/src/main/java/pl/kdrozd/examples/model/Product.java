@@ -17,15 +17,17 @@ public class Product {
     private String description;
     private String manufacturer;
 
+    // constructors, getters, setters...
+
+    public Product() {
+    }
+
     public Product(Long id, String name, Integer quantity, String description, String manufacturer) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.description = description;
         this.manufacturer = manufacturer;
-    }
-
-    public Product() {
     }
 
     public Long getId() {

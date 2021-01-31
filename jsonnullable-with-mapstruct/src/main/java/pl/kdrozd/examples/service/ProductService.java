@@ -5,37 +5,28 @@ import org.springframework.stereotype.Service;
 import pl.kdrozd.examples.dto.ProductDTO;
 import pl.kdrozd.examples.mapper.ProductMapper;
 import pl.kdrozd.examples.model.Product;
+import pl.kdrozd.examples.repository.ProductRepository;
 
 @Service
 public class ProductService {
 
     private final ProductMapper mapper;
-    private final DummyProductRepository repo;
+    private final ProductRepository repo;
 
-    public ProductService(ProductMapper mapper) {
+    public ProductService(ProductMapper mapper, ProductRepository repo) {
         this.mapper = mapper;
-        this.repo = new DummyProductRepository();
+        this.repo = repo;
     }
 
     public ProductDTO update(long productId, ProductDTO update) {
-        Product destination = repo.findById(productId);
-        // check if present blah, blah...
+        Product product = repo.findById(productId).orElseThrow(() -> {
+            throw new RuntimeException("Product with id <" + productId + "> not found.");
+        });
 
-        mapper.update(update, destination);
-        repo.save(destination);
+        mapper.update(update, product);
+        repo.save(product);
 
-        return mapper.map(destination);
+        return mapper.map(product);
     }
 
-    // Dummy class
-    private static class DummyProductRepository {
-
-        public Product findById(long id) {
-            return new Product(id, "whatever", 0, "description", "company");
-        }
-
-        public void save(Product product) {
-            //do nothing
-        }
-    }
 }
