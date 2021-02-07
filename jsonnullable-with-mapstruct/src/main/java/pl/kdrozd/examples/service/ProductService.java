@@ -19,7 +19,7 @@ public class ProductService {
     }
 
     public ProductDTO update(long productId, ProductDTO update) {
-        Product product = repo.findById(productId).orElseThrow(() -> {
+        Product product = repo.findById(productId).<RuntimeException>orElseThrow(() -> {
             throw new RuntimeException("Product with id <" + productId + "> not found.");
         });
 

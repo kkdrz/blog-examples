@@ -20,7 +20,10 @@ public class ProductDTO {
         return manufacturer != null && manufacturer.isPresent();
     }
 
-    // constructor, getters, setters...
+    // constructors, getters, setters...
+
+    public ProductDTO() {
+    }
 
     public ProductDTO(Long id, String name, Integer quantity, JsonNullable<String> description, JsonNullable<String> manufacturer) {
         this.id = id;
