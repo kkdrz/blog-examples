@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group 'pl.kdrozd.examples'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor project(":annotation-processor")
+    implementation project(":annotation-processor")
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+test {
+    useJUnitPlatform()
+}
