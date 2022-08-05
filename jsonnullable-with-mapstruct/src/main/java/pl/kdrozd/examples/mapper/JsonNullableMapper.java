@@ -1,5 +1,6 @@
 package pl.kdrozd.examples.mapper;
 
+import org.mapstruct.Condition;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -7,14 +8,20 @@ import org.openapitools.jackson.nullable.JsonNullable;
 @Mapper(componentModel = "spring")
 public interface JsonNullableMapper {
 
-    @Named("unwrap")
-    default String unwrap(JsonNullable<String> nullable) {
-        return nullable.orElse(null);
-    }
-
-    @Named("wrap")
-    default JsonNullable<String> wrap(String entity) {
+    default <T> JsonNullable<T> wrap(T entity) {
         return JsonNullable.of(entity);
     }
 
+    default <T> T unwrap(JsonNullable<T> jsonNullable) {
+        return jsonNullable == null ? null : jsonNullable.orElse(null);
+    }
+
+    /**
+     * Checks whether nullable parameter was passed explicitly.
+     * @return true if value was set explicitly, false otherwise
+     */
+    @Condition
+    default <T> boolean isPresent(JsonNullable<T> nullable) {
+        return nullable != null && nullable.isPresent();
+    }
 }

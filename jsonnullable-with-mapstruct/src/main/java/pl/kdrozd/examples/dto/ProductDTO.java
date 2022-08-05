@@ -12,16 +12,6 @@ public class ProductDTO {
     private JsonNullable<String> description;
     private JsonNullable<String> manufacturer;
 
-    public boolean hasDescription() {
-        return description != null && description.isPresent();
-    }
-
-    public boolean hasManufacturer() {
-        return manufacturer != null && manufacturer.isPresent();
-    }
-
-    // constructors, getters, setters...
-
     public ProductDTO() {
     }
 
